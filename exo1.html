@@ -1,0 +1,77 @@
+<canvas></canvas>
+<canvas></canvas>
+
+<nav>
+    <a href="index.html"> TEST</a>
+    <a href="exo1.html"> EXO 1</a>
+    <a href=""></a>
+</nav>
+
+<style>
+    html,
+    body {
+        height: 100%;
+        margin: 0;
+    }
+
+    canvas:first-child {
+        display: block;
+        width: 70%;
+        height: 70%;
+        border: 1px solid black;
+        margin-left: 20%;
+    }
+
+    canvas+canvas {
+        position: absolute;
+        width: 70%;
+        height: 70%;
+        top: 0;
+        left: 0;
+        margin-left: 20%;
+    }
+</style>
+
+<script>
+    var canvas = document.querySelector("canvas:first-child"),
+        temp = document.querySelector("canvas+canvas"),
+        ctx = canvas.getContext("2d"),
+        ctxTemp = temp.getContext("2d"),
+        posX, posY;
+
+
+    function draw(e) {
+        var curX = e.clientX - canvas.offsetLeft,
+            curY = e.clientY - canvas.offsetTop;
+
+        ctx.lineWidth = ctxTemp.lineWidth = 1;
+
+        var r = Math.random() * (70 - 5) + 10;
+        ctxTemp.beginPath();
+        ctxTemp.clearRect(0, 0, canvas.width, canvas.height);
+        ctxTemp.arc(posX, posY, r, 0, 2 * Math.PI);
+        ctxTemp.fillStyle = '#' + (Math.random() * 0xFFFFFF << 0).toString(16)
+        ctxTemp.fill();
+    }
+
+    function initDraw(e) {
+        posX = e.clientX - canvas.offsetLeft;
+        posY = e.clientY - canvas.offsetTop;
+        ctxTemp.beginPath();
+        ctxTemp.moveTo(posX, posY);
+        addEventListener('click', draw, false);
+    }
+
+    function endDraw(e) {
+        ctxTemp.closePath();
+        ctx.drawImage(temp, 0, 0);
+        ctxTemp.clearRect(0, 0, canvas.width, canvas.height);
+    }
+
+
+    temp.addEventListener('mousedown', initDraw, false);
+    addEventListener('mouseup', endDraw, false);
+
+    canvas.width = temp.width = canvas.offsetWidth;
+    canvas.height = temp.height = canvas.offsetHeight;
+</script>
