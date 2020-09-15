@@ -1,0 +1,43 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <style>
+        canvas {
+            border: 1px solid black;
+        }
+    </style>
+</head>
+
+<body>
+
+
+
+    <canvas id="moncanvas" width="600" height="600">
+        Texte de remplacement pour les navigateurs ne supportant pas Canvas.
+    </canvas>
+    <nav>
+        <a href="index.html"> TEST</a>
+        <a href="exo1.html"> EXO 1</a>
+        <a href="exo2.html"> EXO 2</a>
+    </nav>
+
+    <script>
+
+        const canvas = document.getElementById('moncanvas');
+        const ctx = canvas.getContext('2d');
+
+        for (var i = 0; i < 60; i++) {
+                for (var j = 0; j < 60; j++) {
+                    ctx.fillStyle="#FF4422"
+                    ctx.fillRect(i * 60, j * 60, 60, 60);
+                    ctx.fill();
+                }
+            }
+
+        
+
+    </script>
+</body>
+
+</html>
